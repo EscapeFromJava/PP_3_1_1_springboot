@@ -1,10 +1,10 @@
-package com.example.pp_3_1_1_springboot.service;
+package com.example.pp_3_1_1_springboot.dao;
 
 import com.example.pp_3_1_1_springboot.model.User;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserDao {
     User getUser(Long id);
 
     List<User> getAllUsers();
@@ -14,7 +14,4 @@ public interface UserService {
     void deleteUser(Long id);
 
     void updateUser(User user);
-
-    void addRandomUsers();
-
 }
