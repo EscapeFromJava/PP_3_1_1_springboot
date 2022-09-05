@@ -50,4 +50,9 @@ public class UserServiceImpl implements UserService {
     public void addRandomUsers() {
         UserGenerator.generateUsers().forEach(userDao::saveUser);
     }
+
+    @Override
+    public List<User> getUsersWithName(String name) {
+        return userDao.getUsersWithName(name.concat("%"));
+    }
 }

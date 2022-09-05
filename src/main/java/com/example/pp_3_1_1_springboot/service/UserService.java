@@ -17,4 +17,6 @@ public interface UserService {
 
     void addRandomUsers();
 
+    List<User> getUsersWithName(String name);
+
 }

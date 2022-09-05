@@ -2,6 +2,8 @@ package com.example.pp_3_1_1_springboot.controller;
 
 import com.example.pp_3_1_1_springboot.model.User;
 import com.example.pp_3_1_1_springboot.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 public class UsersController {
     private final UserService userService;
 
+    private final Logger logger = LoggerFactory.getLogger(UsersController.class);
+
     public UsersController(UserService userService) {
         this.userService = userService;
     }
@@ -19,12 +23,6 @@ public class UsersController {
     public String getAllUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "users/index";
-    }
-
-    @GetMapping("/{id}")
-    public String getUserById(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.getUser(id));
-        return "users/show";
     }
 
     @GetMapping("/new")
@@ -60,5 +58,11 @@ public class UsersController {
     public String add10RandomUsers() {
         userService.addRandomUsers();
         return "redirect:/users";
+    }
+
+    @GetMapping("/filter")
+    public String getUsersWithName(@RequestParam(value = "name", required = false) String name, Model model) {
+        model.addAttribute("users", userService.getUsersWithName(name));
+        return "users/filter";
     }
 }

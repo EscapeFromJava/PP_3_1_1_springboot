@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Filter by name</title>
+</head>
+<body>
+
+<h2>Users: (count =  <th:block th:text="${users.size()}"/>)</h2>
+
+<div th:each="user : ${users}">
+    <p>ID: <th:block th:text="${user.getId()}"/></p>
+    <p>First Name: <th:block th:text="${user.getFirstName()}"/></p>
+    <p>Second Name: <th:block th:text="${user.getSecondName()}"/></p>
+    <p>Email: <th:block th:text="${user.getEmail()}"/></p>
+    <hr/>
+</div>
+
+<form th:action="@{/users}">
+    <button>Back</button>
+</form>
+
+</body>
+</html>
