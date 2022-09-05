@@ -23,11 +23,9 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @NotNull
     @Length(min = 6, max = 12)
     private String login;
 
-    @NotNull
     @Length(min = 4, max = 8)
     private String password;
     @NotNull
@@ -38,7 +36,7 @@ public class User {
     private String secondName;
     @Min(18)
     @Max(127)
-    private byte age;
+    private Byte age;
     @NotNull
     @Email
     private String email;
@@ -46,7 +44,7 @@ public class User {
     @OneToMany(mappedBy = "owner")
     private List<Item> items;
 
-    public User(String login, String password, String firstName, String secondName, byte age, String email) {
+    public User(String login, String password, String firstName, String secondName, Byte age, String email) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
