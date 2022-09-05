@@ -1,6 +1,8 @@
 package com.example.pp_3_1_1_springboot.controller;
 
+import com.example.pp_3_1_1_springboot.model.Car;
 import com.example.pp_3_1_1_springboot.model.User;
+import com.example.pp_3_1_1_springboot.service.CarService;
 import com.example.pp_3_1_1_springboot.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,20 +10,30 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/users")
 public class UsersController {
     private final UserService userService;
+    private final CarService carService;
 
     private final Logger logger = LoggerFactory.getLogger(UsersController.class);
 
-    public UsersController(UserService userService) {
+    public UsersController(UserService userService, CarService carService) {
         this.userService = userService;
+        this.carService = carService;
     }
 
     @GetMapping()
     public String getAllUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("cars", carService.getAllCars());
+        model.addAttribute("brands", carService.getAllCars()
+                .stream()
+                .map(Car::getBrand)
+                .collect(Collectors.toSet()));
         return "users/index";
     }
 

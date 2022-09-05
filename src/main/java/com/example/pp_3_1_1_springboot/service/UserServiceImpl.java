@@ -3,8 +3,6 @@ package com.example.pp_3_1_1_springboot.service;
 import com.example.pp_3_1_1_springboot.dao.UserDao;
 import com.example.pp_3_1_1_springboot.model.User;
 import com.example.pp_3_1_1_springboot.util.UserGenerator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

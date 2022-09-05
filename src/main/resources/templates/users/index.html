@@ -8,10 +8,12 @@
             width: 300px;
             border-collapse: collapse;
         }
+
         TD, TH {
             padding: 3px;
             border: 1px solid black;
         }
+
         TH {
             background: #b0e0e6;
         }
@@ -19,106 +21,160 @@
 </head>
 <body>
 
-<h2>Users: (count =
-    <th:block th:text="${users.size()}"/>
-    )
-</h2>
+<div th:style="'border: 1px solid black; width: 50%;'">
+    <h2>Users: (count =
+        <th:block th:text="${users.size()}"/>
+        )
+    </h2>
 
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Login</th>
-        <th>Password</th>
-        <th>First Name</th>
-        <th>Second Name</th>
-        <th>Age</th>
-        <th>Email</th>
-        <th>Items</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <th:block th:each="user : ${users}">
+    <table>
+        <thead>
         <tr>
-            <th>
-                <th:block th:text="${user.id}"/>
-            </th>
-            <th>
-                <th:block th:text="${user.login}"/>
-            </th>
-            <th>
-                <th:block th:text="${user.password}"/>
-            </th>
-            <th>
-                <th:block th:text="${user.firstName}"/>
-            </th>
-            <th>
-                <th:block th:text="${user.secondName}"/>
-            </th>
-            <th>
-                <th:block th:text="${user.age}"/>
-            </th>
-            <th>
-                <th:block th:text="${user.email}"/>
-            </th>
-            <th>
-                <select th:style="'text-align: center'">
-                    <th:block th:each="item : ${user.items}">
-                        <option>
-                            <th:block th:text="${item.item_name} + ': ' + ${item.price} + '$'"/>
-                        </option>
-                    </th:block>
-                </select>
-            </th>
-            <th>
-                <form th:action="@{/users/{id}/edit(id=${user.id})}">
-                    <button>Edit</button>
-                </form>
-            </th>
-            <th>
-                <form th:action="@{/users/delete/{id}(id=${user.id})}">
-                    <button>Delete</button>
-                </form>
-            </th>
+            <th>ID</th>
+            <th>Login</th>
+            <th>Password</th>
+            <th>First Name</th>
+            <th>Second Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Items</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
-    </th:block>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <th:block th:each="user : ${users}">
+            <tr>
+                <th>
+                    <th:block th:text="${user.id}"/>
+                </th>
+                <th>
+                    <th:block th:text="${user.login}"/>
+                </th>
+                <th>
+                    <th:block th:text="${user.password}"/>
+                </th>
+                <th>
+                    <th:block th:text="${user.firstName}"/>
+                </th>
+                <th>
+                    <th:block th:text="${user.secondName}"/>
+                </th>
+                <th>
+                    <th:block th:text="${user.age}"/>
+                </th>
+                <th>
+                    <th:block th:text="${user.email}"/>
+                </th>
+                <th>
+                    <select th:style="'text-align: center'">
+                        <th:block th:each="item : ${user.items}">
+                            <option>
+                                <th:block th:text="${item.item_name} + ': ' + ${item.price} + '$'"/>
+                            </option>
+                        </th:block>
+                    </select>
+                </th>
+                <th>
+                    <form th:action="@{/users/{id}/edit(id=${user.id})}">
+                        <button>Edit</button>
+                    </form>
+                </th>
+                <th>
+                    <form th:action="@{/users/delete/{id}(id=${user.id})}">
+                        <button>Delete</button>
+                    </form>
+                </th>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
 
-<br/>
+    <br/>
 
-<form th:action="@{/users/filter/login}" th:method="GET">
-    <p>Find by login (with %)</p>
-    <input type="text" name="login" placeholder="Write login"/>
-    <input type="submit"/>
-    <input type="reset"/>
-</form>
+    <form th:action="@{/users/filter/login}" th:method="GET">
+        <p>Find by login (with %)</p>
+        <input type="text" name="login" placeholder="Write login"/>
+        <input type="submit"/>
+        <input type="reset"/>
+    </form>
 
-<form th:action="@{/users/filter/age}" th:method="GET">
-    <p>Find by age (between min and max)</p>
-    <input type="text" name="min" placeholder="min"/>
-    <input type="text" name="max" placeholder="max"/>
-    <input type="submit"/>
-    <input type="reset"/>
-</form>
+    <form th:action="@{/users/filter/age}" th:method="GET">
+        <p>Find by age (between min and max)</p>
+        <input type="text" name="min" placeholder="min"/>
+        <input type="text" name="max" placeholder="max"/>
+        <input type="submit"/>
+        <input type="reset"/>
+    </form>
+
+    <hr/>
+
+    <form th:action="@{/users/new}">
+        <button>Add new user</button>
+    </form>
+
+    <form th:method="POST" th:action="@{/users/generate}">
+        <button>Add 10 random users</button>
+    </form>
+
+    <div align="right">
+        <form th:action="@{/users/truncate}">
+            <button th:style="'color: red'">TRUNCATE TABLE</button>
+        </form>
+    </div>
+
+</div>
 
 <hr/>
 
-<form th:action="@{/users/new}">
-    <button>Add new user</button>
-</form>
+<div th:style="'border: 1px solid black; width: 50%;'">
 
-<form th:method="POST" th:action="@{/users/generate}">
-    <button>Add 10 random users</button>
-</form>
+    <h2>Cars: (count =
+        <th:block th:text="${cars.size()}"/>
+        )
+    </h2>
 
-<hr/>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="car : ${cars}">
+            <tr>
+                <th>
+                    <th:block th:text="${car.id}"/>
+                </th>
+                <th>
+                    <th:block th:text="${car.brand}"/>
+                </th>
+                <th>
+                    <th:block th:text="${car.model}"/>
+                </th>
+                <th>
+                    <th:block th:text="${car.price} + '$'"/>
+                </th>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
 
-<form th:action="@{/users/truncate}">
-    <button>TRUNCATE TABLE</button>
-</form>
+    <p>
+        Select brand:
+        <select th:style="'text-align: center'">
+            <th:block th:each="brand : ${brands}">
+                <option>
+                    <th:block th:text="${brand}"/>
+                </option>
+            </th:block>
+        </select>
+    </p>
+
+</div>
 
 </body>
 </html>
