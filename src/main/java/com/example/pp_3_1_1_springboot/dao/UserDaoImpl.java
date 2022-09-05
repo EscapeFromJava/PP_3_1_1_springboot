@@ -2,12 +2,9 @@ package com.example.pp_3_1_1_springboot.dao;
 
 
 import com.example.pp_3_1_1_springboot.model.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.List;
 
 @Repository
@@ -15,15 +12,13 @@ public class UserDaoImpl implements UserDao {
 
     private final EntityManager entityManager;
 
-    private final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
-
     public UserDaoImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     @Override
     public List<User> getAllUsers() {
-        return entityManager.createQuery("FROM User", User.class).getResultList();
+        return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
 
     @Override
@@ -47,9 +42,22 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> getUsersWithName(String name) {
-        return entityManager.createQuery("FROM User WHERE firstName LIKE :name")
-                .setParameter("name", name)
+    public List<User> getUsersWithLogin(String login) {
+        return entityManager.createQuery("SELECT u FROM User u WHERE u.login LIKE :login", User.class)
+                .setParameter("login", login)
                 .getResultList();
+    }
+
+    @Override
+    public List<User> getUsersWithAgeBetweenMinAndMax(byte min, byte max) {
+        return entityManager.createQuery("SELECT u FROM User u WHERE u.age BETWEEN :min AND :max", User.class)
+                .setParameter("min", min)
+                .setParameter("max", max)
+                .getResultList();
+    }
+
+    @Override
+    public void truncateTable() {
+        entityManager.createQuery("DELETE FROM User").executeUpdate();
     }
 }

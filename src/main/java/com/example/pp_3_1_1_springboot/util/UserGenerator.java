@@ -12,8 +12,11 @@ public class UserGenerator {
         for (int i = 0; i < 10; i++) {
             String firstName = FirstName.values()[new Random().nextInt(FirstName.values().length)].name();
             String secondName = SecondName.values()[new Random().nextInt(SecondName.values().length)].name();
+            String login = firstName.concat(String.valueOf(new Random().nextInt(111, 999)));
+            String password = String.valueOf(new Random().nextInt(1000, 99999999));
+            byte age = (byte) new Random().nextInt(18, 80);
             String email = firstName.concat(".").concat(secondName).concat("@gmail.com").toLowerCase();
-            User user = new User(firstName, secondName, email);
+            User user = new User(login, password, firstName, secondName, age, email);
             users.add(user);
         }
         return users;

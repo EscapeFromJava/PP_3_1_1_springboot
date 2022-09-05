@@ -8,10 +8,22 @@
 
 <h2>Edit user</h2>
 <form th:method="PATCH" th:action="@{/users/{id}(id = ${user.id})}" th:object="${user}">
-    <p>ID: <th:block th:text="*{id}" id="id"/></p>
-    <p>First name: <input type="text" th:field="*{firstName}" id="firstName"/></p>
-    <p>Second name: <input type="text" th:field="*{secondName}" id="secondName"/></p>
-    <p>Email: <input type="text" th:field="*{email}" id="email"/></p>
+    <p>ID: <th:block th:text="*{id}"/></p>
+    <p>Login: <input type="text" th:field="*{login}"/></p>
+    <p>Password: <input type="text" th:field="*{password}"/></p>
+    <p>First name: <input type="text" th:field="*{firstName}"/></p>
+    <p>Second name: <input type="text" th:field="*{secondName}"/></p>
+    <p>Age: <input type="text" th:field="*{age}"/></p>
+    <p>Email: <input type="text" th:field="*{email}"/></p>
+    <p>Items:
+        <select th:style="'text-align: center'">
+            <th:block th:each="item : ${user.items}">
+                <option>
+                    <th:block th:text="${item.item_name} + ': ' + ${item.price} + '$'"/>
+                </option>
+            </th:block>
+        </select>
+    </p>
     <p><input type="submit" value="Update"/></p>
 </form>
 

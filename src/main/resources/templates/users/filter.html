@@ -9,10 +9,13 @@
 <h2>Users: (count =  <th:block th:text="${users.size()}"/>)</h2>
 
 <div th:each="user : ${users}">
-    <p>ID: <th:block th:text="${user.getId()}"/></p>
-    <p>First Name: <th:block th:text="${user.getFirstName()}"/></p>
-    <p>Second Name: <th:block th:text="${user.getSecondName()}"/></p>
-    <p>Email: <th:block th:text="${user.getEmail()}"/></p>
+    <p>ID: <th:block th:text="${user.id}"/></p>
+    <p>Login: <th:block th:text="${user.login}"/></p>
+    <p>Password: <th:block th:text="${user.password}"/></p>
+    <p>First Name: <th:block th:text="${user.firstName}"/></p>
+    <p>Second Name: <th:block th:text="${user.secondName}"/></p>
+    <p>Age: <th:block th:text="${user.age}"/></p>
+    <p>Email: <th:block th:text="${user.email}"/></p>
     <hr/>
 </div>
 

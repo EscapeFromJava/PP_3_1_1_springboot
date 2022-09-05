@@ -3,6 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
+    <style type="text/css">
+        TABLE {
+            width: 300px;
+            border-collapse: collapse;
+        }
+        TD, TH {
+            padding: 3px;
+            border: 1px solid black;
+        }
+        TH {
+            background: #b0e0e6;
+        }
+    </style>
 </head>
 <body>
 
@@ -15,9 +28,15 @@
     <thead>
     <tr>
         <th>ID</th>
+        <th>Login</th>
+        <th>Password</th>
         <th>First Name</th>
         <th>Second Name</th>
+        <th>Age</th>
         <th>Email</th>
+        <th>Items</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -27,13 +46,31 @@
                 <th:block th:text="${user.id}"/>
             </th>
             <th>
+                <th:block th:text="${user.login}"/>
+            </th>
+            <th>
+                <th:block th:text="${user.password}"/>
+            </th>
+            <th>
                 <th:block th:text="${user.firstName}"/>
             </th>
             <th>
                 <th:block th:text="${user.secondName}"/>
             </th>
             <th>
+                <th:block th:text="${user.age}"/>
+            </th>
+            <th>
                 <th:block th:text="${user.email}"/>
+            </th>
+            <th>
+                <select th:style="'text-align: center'">
+                    <th:block th:each="item : ${user.items}">
+                        <option>
+                            <th:block th:text="${item.item_name} + ': ' + ${item.price} + '$'"/>
+                        </option>
+                    </th:block>
+                </select>
             </th>
             <th>
                 <form th:action="@{/users/{id}/edit(id=${user.id})}">
@@ -52,10 +89,19 @@
 
 <br/>
 
-<form th:action="@{/users/filter}" th:method="GET">
-    <p>Find by name (with %)</p>
-    <input type="text" name="name" placeholder="Write name"/>
+<form th:action="@{/users/filter/login}" th:method="GET">
+    <p>Find by login (with %)</p>
+    <input type="text" name="login" placeholder="Write login"/>
     <input type="submit"/>
+    <input type="reset"/>
+</form>
+
+<form th:action="@{/users/filter/age}" th:method="GET">
+    <p>Find by age (between min and max)</p>
+    <input type="text" name="min" placeholder="min"/>
+    <input type="text" name="max" placeholder="max"/>
+    <input type="submit"/>
+    <input type="reset"/>
 </form>
 
 <hr/>
@@ -66,6 +112,12 @@
 
 <form th:method="POST" th:action="@{/users/generate}">
     <button>Add 10 random users</button>
+</form>
+
+<hr/>
+
+<form th:action="@{/users/truncate}">
+    <button>TRUNCATE TABLE</button>
 </form>
 
 </body>

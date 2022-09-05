@@ -17,6 +17,10 @@ public interface UserService {
 
     void addRandomUsers();
 
-    List<User> getUsersWithName(String name);
+    List<User> getUsersWithLogin(String login);
+
+    List<User> getUsersWithAgeBetweenMinAndMax(byte min, byte max);
+
+    void truncateTable();
 
 }

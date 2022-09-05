@@ -3,15 +3,19 @@ package com.example.pp_3_1_1_springboot.service;
 import com.example.pp_3_1_1_springboot.dao.UserDao;
 import com.example.pp_3_1_1_springboot.model.User;
 import com.example.pp_3_1_1_springboot.util.UserGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
+
 
     public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
@@ -24,7 +28,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
-        return userDao.getAllUsers();
+        List<User> list = userDao.getAllUsers();
+        list.sort(Comparator.comparing(User::getId));
+        return list;
     }
 
     @Override
@@ -52,7 +58,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsersWithName(String name) {
-        return userDao.getUsersWithName(name.concat("%"));
+    public List<User> getUsersWithLogin(String login) {
+        List<User> list = userDao.getUsersWithLogin(login.concat("%"));
+        list.sort(Comparator.comparing(User::getId));
+        return list;
+    }
+
+    @Override
+    public List<User> getUsersWithAgeBetweenMinAndMax(byte min, byte max) {
+        List<User> list = userDao.getUsersWithAgeBetweenMinAndMax(min, max);
+        list.sort(Comparator.comparing(User::getId));
+        return list;
+    }
+
+    @Override
+    @Transactional
+    public void truncateTable() {
+        userDao.truncateTable();
     }
 }

@@ -8,11 +8,20 @@
 
 <h2>Add user</h2>
 <form th:method="POST" th:action="@{/users}" th:object="${newUser}">
+    <label for="login">Login</label>
+    <input type="text" th:field="*{login}" id="login"/>
+    <br/>
+    <label for="password">Password</label>
+    <input type="password" th:field="*{password}" id="password"/>
+    <br/>
     <label for="firstName">First name</label>
     <input type="text" th:field="*{firstName}" id="firstName"/>
     <br/>
     <label for="secondName">Second name</label>
     <input type="text" th:field="*{secondName}" id="secondName"/>
+    <br/>
+    <label for="age">Age</label>
+    <input type="text" th:field="*{age}" id="age"/>
     <br/>
     <label for="email">Email</label>
     <input type="text" th:field="*{email}" id="email"/>

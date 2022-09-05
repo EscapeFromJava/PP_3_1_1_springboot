@@ -44,6 +44,7 @@ public class UsersController {
 
     @PostMapping("/{id}")
     public String update(@ModelAttribute("user") User user) {
+        logger.info("test: " + user);
         userService.updateUser(user);
         return "redirect:/users";
     }
@@ -60,9 +61,24 @@ public class UsersController {
         return "redirect:/users";
     }
 
-    @GetMapping("/filter")
-    public String getUsersWithName(@RequestParam(value = "name", required = false) String name, Model model) {
-        model.addAttribute("users", userService.getUsersWithName(name));
+    @GetMapping("/truncate")
+    public String truncateTable() {
+        userService.truncateTable();
+        return "redirect:/users";
+    }
+
+    @GetMapping("/filter/login")
+    public String getUsersWithLogin(@RequestParam(value = "login", required = false) String login, Model model) {
+        model.addAttribute("users", userService.getUsersWithLogin(login));
         return "users/filter";
     }
+
+    @GetMapping("/filter/age")
+    public String getUsersWithAgeBetweenMinAndMax(@RequestParam(value = "min") byte min,
+                                                  @RequestParam(value = "max") byte max,
+                                                  Model model) {
+        model.addAttribute("users", userService.getUsersWithAgeBetweenMinAndMax(min, max));
+        return "users/filter";
+    }
+
 }
